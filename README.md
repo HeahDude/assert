@@ -1,3 +1,24 @@
+HeahDude Fork
+=============
+
+This fork allows static inheritance and methods overriding, including tests.
+
+Add this repository in your `composer.json`:
+
+```json
+{
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/HeahDude/assert.git"
+        }
+    ],
+    "require": {
+        "webmozart/assert": "dev-master as 1.1-master"
+    }
+}
+```
+
 Webmozart Assert
 ================
 
