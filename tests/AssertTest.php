@@ -25,15 +25,16 @@ use Webmozart\Assert\Assert;
  */
 class AssertTest extends PHPUnit_Framework_TestCase
 {
+    protected static $assert = Assert::class;
     private static $resource;
 
     public static function getResource()
     {
-        if (!static::$resource) {
-            static::$resource = fopen(__FILE__, 'r');
+        if (!self::$resource) {
+            self::$resource = fopen(__FILE__, 'r');
         }
 
-        return static::$resource;
+        return self::$resource;
     }
 
     public static function tearDownAfterClass()
@@ -317,7 +318,7 @@ class AssertTest extends PHPUnit_Framework_TestCase
             $this->setExpectedException('\InvalidArgumentException');
         }
 
-        call_user_func_array(array('Webmozart\Assert\Assert', $method), $args);
+        call_user_func_array(array(static::$assert, $method), $args);
     }
 
     /**
@@ -335,7 +336,7 @@ class AssertTest extends PHPUnit_Framework_TestCase
             $this->setExpectedException('\InvalidArgumentException');
         }
 
-        call_user_func_array(array('Webmozart\Assert\Assert', 'nullOr'.ucfirst($method)), $args);
+        call_user_func_array(array(static::$assert, 'nullOr'.ucfirst($method)), $args);
     }
 
     /**
@@ -343,7 +344,7 @@ class AssertTest extends PHPUnit_Framework_TestCase
      */
     public function testNullOrAcceptsNull($method)
     {
-        call_user_func(array('Webmozart\Assert\Assert', 'nullOr'.ucfirst($method)), null);
+        call_user_func(array(static::$assert, 'nullOr'.ucfirst($method)), null);
     }
 
     /**
@@ -364,7 +365,7 @@ class AssertTest extends PHPUnit_Framework_TestCase
         $arg = array_shift($args);
         array_unshift($args, array($arg));
 
-        call_user_func_array(array('Webmozart\Assert\Assert', 'all'.ucfirst($method)), $args);
+        call_user_func_array(array(static::$assert, 'all'.ucfirst($method)), $args);
     }
 
     /**
@@ -385,7 +386,7 @@ class AssertTest extends PHPUnit_Framework_TestCase
         $arg = array_shift($args);
         array_unshift($args, new ArrayIterator(array($arg)));
 
-        call_user_func_array(array('Webmozart\Assert\Assert', 'all'.ucfirst($method)), $args);
+        call_user_func_array(array(static::$assert, 'all'.ucfirst($method)), $args);
     }
 
     public function getStringConversions()
@@ -417,6 +418,6 @@ class AssertTest extends PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('\InvalidArgumentException', $exceptionMessage);
 
-        call_user_func_array(array('Webmozart\Assert\Assert', $method), $args);
+        call_user_func_array(array(static::$assert, $method), $args);
     }
 }
